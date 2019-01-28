@@ -3,7 +3,8 @@
 #include <cstring>
 
 Student::Student(const char * const name, int perm) {
-  this->setName("another stub");
+  this->setName(name);
+  this->setPerm(perm);
 }
 
 int Student::getPerm() const {
@@ -11,11 +12,11 @@ int Student::getPerm() const {
 }
 
 const char * const Student::getName() const {
-  return name; //???
+  return name; 
 }
 
 void Student::setPerm(const int permNumber) {
-  perm = permNumber;//???
+  perm = permNumber;
 }
 
 void Student::setName(const char * const name) {
@@ -25,13 +26,12 @@ void Student::setName(const char * const name) {
 
 
 Student::Student(const Student &orig) {
-  this->setName(orig.getName());//???
+  this->setName(orig.getName());
   this->setPerm(orig.getPerm());
 }
 
 Student::~Student() {
-   this->name = name; 
-   this->perm = perm; 
+  delete name; 
 }
 
 Student & Student::operator=(const Student &right) {
@@ -44,15 +44,16 @@ Student & Student::operator=(const Student &right) {
 
   // TODO... Here is where there is code missing that you need to 
   // fill in...
-
+  this-> ~Student();
+  new (this) Student(right); 
 
   // KEEP THE CODE BELOW THIS LINE
   // Overloaded = should end with this line, despite what the textbook says.
   return (*this); 
-
 }
 
-std::string Student::toString() const {
-  return "tostring stub";
+std::string Student::toString() const { 
+    std::string str = "[" +this->getName() + this->getPerm() +"]";
+    return str; 
 }
 

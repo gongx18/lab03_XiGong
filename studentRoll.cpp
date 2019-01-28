@@ -58,7 +58,9 @@ StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
 
   // TODO... Here is where there is code missing that you need to 
   // fill in...
-  ~StudentRoll();
+  this-> ~StudentRoll(); // release old resources 
+  new(this) StudentRoll(right); // storage reuse -- copy from rhs  
+  
   
 
 
