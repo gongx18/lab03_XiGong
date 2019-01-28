@@ -53,7 +53,7 @@ Student & Student::operator=(const Student &right) {
 }
 
 std::string Student::toString() const { 
-    std::string str = "[" +this->getName() + this->getPerm() +"]";
-    return str; 
+   // std::string str = "[" +this->getName() + this->getPerm() +"]";
+   // return str; 
 }
 
