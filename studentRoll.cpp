@@ -9,14 +9,18 @@ void StudentRoll::insertAtTail(const Student &s) {//the parameter is a pointer t
 	auto n = new Node;
 
 	n->s = new Student(s);
+        n->next = NULL; //**
 
-	if (head == nullptr)
+	if (head == nullptr){
 		head = n;
+		tail = n; 
+	}
 
-	if (tail != nullptr)
+	if (tail != nullptr){
 		tail->next = n;
-
-	tail = n;
+		tail = n; 
+        }
+	
 }
 
 std::string StudentRoll::toString() const {
@@ -41,10 +45,12 @@ StudentRoll::StudentRoll(const StudentRoll &orig) {
 }
 
 StudentRoll::~StudentRoll() {
-	for (auto current = head; current != nullptr;) {
-		const auto next = current->next;
-		delete current;
-		current = next;
+	Node *cur = head;
+	Node *next;
+	while(cur){
+	  next = cur->next;
+	  delete(cur);
+	  cur = next; 
 	}
 }
 
@@ -61,8 +67,6 @@ StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
   this-> ~StudentRoll(); 
   new(this) StudentRoll(right);
   
-  
-
 
   // KEEP THE CODE BELOW THIS LINE
   // Overloaded = should end with this line, despite what the textbook says.

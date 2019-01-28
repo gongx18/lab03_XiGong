@@ -1,8 +1,9 @@
 #include "student.h"
 #include <string>
 #include <cstring>
-
+#include <sstream>
 Student::Student(const char * const name, int perm) {
+  this->name = 0; 
   this->setName(name);
   this->setPerm(perm);
 }
@@ -20,18 +21,21 @@ void Student::setPerm(const int permNumber) {
 }
 
 void Student::setName(const char * const name) {
+  if(this->name != NULL)	
+	delete[] this->name; 
   this->name = new char[strlen(name)+1];
   strcpy(this->name,name);
 }
 
 
 Student::Student(const Student &orig) {
+  this->name = 0; 
   this->setName(orig.getName());
   this->setPerm(orig.getPerm());
 }
 
 Student::~Student() {
-  delete name; 
+  delete[] name; 
 }
 
 Student & Student::operator=(const Student &right) {
@@ -52,8 +56,9 @@ Student & Student::operator=(const Student &right) {
   return (*this); 
 }
 
-std::string Student::toString() const { 
-   // std::string str = "[" +this->getName() + this->getPerm() +"]";
-   // return str; 
+std::string Student::toString() const {  
+   std::ostringstream oss;
+   oss<< "[" << this->getName() <<","<<this->getPerm()<<"]";//why use this
+   return oss.str();
 }
 
