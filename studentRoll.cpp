@@ -6,17 +6,17 @@ StudentRoll::StudentRoll() {
 }
 
 void StudentRoll::insertAtTail(const Student &s) {//the parameter is a pointer to a Student object; 
-	auto n = new Node;
+	Node* n = new Node;
 
 	n->s = new Student(s);
         n->next = NULL; //**
 
-	if (head == nullptr){
+	if (head == NULL){
 		head = n;
 		tail = n; 
 	}
 
-	if (tail != nullptr){
+	else{   //do not write:  if(tail != NULL), because tail exists and this does nothing; 
 		tail->next = n;
 		tail = n; 
         }
@@ -26,9 +26,10 @@ void StudentRoll::insertAtTail(const Student &s) {//the parameter is a pointer t
 std::string StudentRoll::toString() const {
 	std::string str = "[";
 
-	for (auto p = head; p != nullptr; p = p->next) {
+	for (Node* p = head; p != NULL; p = p->next) {
 		str += p->s->toString();
-		if (p != tail)
+	//	if (p != tail)
+		if(p->next != NULL)
 			str += ",";
 	}
 
@@ -37,9 +38,9 @@ std::string StudentRoll::toString() const {
 }
 
 StudentRoll::StudentRoll(const StudentRoll &orig) {
-    head = tail = nullptr;
+    head = tail = NULL;
 
-    for (auto n = orig.head; n != nullptr; n = n->next) //I copied this from online
+    for (Node* n = orig.head; n != NULL; n = n->next)
         insertAtTail(*(n->s));
           
 }
@@ -64,9 +65,20 @@ StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
 
   // TODO... Here is where there is code missing that you need to 
   // fill in...
-  this-> ~StudentRoll(); 
-  new(this) StudentRoll(right);
+ // this-> ~StudentRoll(); 
+ // new(this) StudentRoll(right);
+  Node* curr = head;
+  Node* next = NULL;
+  while(curr){
+      next = curr->next;
+      delete curr; 
+      curr= next; 
+  }
   
+  head = tail = NULL; 
+  for(auto n = right.head; n != nullptr; n = n->next){
+	insertAtTail(*(n->s)); 
+  }
 
   // KEEP THE CODE BELOW THIS LINE
   // Overloaded = should end with this line, despite what the textbook says.
