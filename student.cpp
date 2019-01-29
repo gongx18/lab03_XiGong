@@ -48,9 +48,10 @@ Student & Student::operator=(const Student &right) {
 
   // TODO... Here is where there is code missing that you need to 
   // fill in...
-  this-> ~Student();
-  new (this) Student(right); 
-
+ // this-> ~Student();
+ // new (this) Student(right); 
+   this->setName(right.getName());
+   this->setPerm(right.getPerm());  
   // KEEP THE CODE BELOW THIS LINE
   // Overloaded = should end with this line, despite what the textbook says.
   return (*this); 

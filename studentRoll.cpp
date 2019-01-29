@@ -8,7 +8,7 @@ StudentRoll::StudentRoll() {
 void StudentRoll::insertAtTail(const Student &s) {//the parameter is a pointer to a Student object; 
 	Node* n = new Node;
 
-	n->s = new Student(s);
+	n->s = new Student(s);//
         n->next = NULL; //**
 
 	if (head == NULL){
@@ -18,8 +18,10 @@ void StudentRoll::insertAtTail(const Student &s) {//the parameter is a pointer t
 
 	else{   //do not write:  if(tail != NULL), because tail exists and this does nothing; 
 		tail->next = n;
+		//n->next=NULL;
 		tail = n; 
         }
+	 
 	
 }
 
@@ -50,7 +52,8 @@ StudentRoll::~StudentRoll() {
 	Node *next;
 	while(cur){
 	  next = cur->next;
-	  delete(cur);
+          delete cur->s; 
+	  delete cur;
 	  cur = next; 
 	}
 }
@@ -71,12 +74,13 @@ StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
   Node* next = NULL;
   while(curr){
       next = curr->next;
+      delete curr->s;
       delete curr; 
       curr= next; 
   }
   
   head = tail = NULL; 
-  for(auto n = right.head; n != nullptr; n = n->next){
+  for(Node* n = right.head; n != nullptr; n = n->next){
 	insertAtTail(*(n->s)); 
   }
 
